@@ -64,6 +64,41 @@ async function postPredictHandler(request, h) {
     }
 }
 
+async function getHistoryHandler(request, h) {
+    const db = new Firestore();
+    const predictCollection = db.collection('prediction');
+    
+    try {
+        const snapshot = await predictCollection.get();
+        const histories = [];
+
+        snapshot.forEach(doc => {
+            const docData = doc.data();
+            histories.push({
+                id: doc.id,  // Use the document ID from Firestore
+                history: {
+                    result: docData.result,  // result from prediction
+                    createdAt: docData.createdAt,  // timestamp of creation
+                    suggestion: docData.suggestion,  // suggestion based on prediction
+                    id: doc.id,  // Include Firestore document ID in history
+                }
+            });
+        });
+
+        return h.response({
+            status: 'success',
+            data: histories,
+        }).code(200); // OK
+    } catch (error) {
+        console.error('Error fetching history:', error);
+        return h.response({
+            status: 'fail',
+            message: 'Error occurred while fetching history',
+        }).code(500); // Internal Server Error
+    }
+}
+
+
 (async () => {
     const server = Hapi.server({
         port: 3000,
