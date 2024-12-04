@@ -19,7 +19,7 @@ async function loadModel() {
 // Store prediction data in Firestore
 async function storeData(id, data) {
     const db = new Firestore();
-    const predictCollection = db.collection('prediction');
+    const predictCollection = db.collection('predictions');
     try {
         await predictCollection.doc(id).set(data);
     } catch (error) {
