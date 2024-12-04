@@ -3,7 +3,7 @@ require('dotenv').config();
 const Hapi = require('@hapi/hapi');
 const crypto = require('crypto');
 const { Firestore } = require('@google-cloud/firestore');
-// const { ClientError, InputError } = require('./errorHandling');
+const { ClientError, InputError } = require('./errorHandling');
 const predictClassification = require('./inferenceService');
 
 // Load model from environment-specified URL
