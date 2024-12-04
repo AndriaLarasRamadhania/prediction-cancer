@@ -52,15 +52,15 @@ async function postPredictHandler(request, h) {
 
         return h.response({
             status: 'success',
-            message: 'Prediction successful',
+            message: 'Model is predicted successfully',
             data,
         }).code(201); // Created
     } catch (error) {
         console.error('Prediction error:', error);
         return h.response({
             status: 'fail',
-            message: 'Error occurred during prediction',
-        }).code(500); // Internal Server Error
+            message: 'Terjadi kesalahan dalam melakukan prediksi',
+        }).code(400); // Internal Server Error
     }
 }
 
