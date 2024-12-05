@@ -107,6 +107,7 @@ async function getHistoryHandler(request, h) {
             cors: { origin: ['*'] },
         },
     });
+    
 
 
     try {
@@ -126,6 +127,12 @@ async function getHistoryHandler(request, h) {
                         parse: true,
                     },
                 },
+            },
+
+             {
+                path: '/predict/histories',
+                method: 'GET',
+                handler: getHistoryHandler,  
             },
         ]);
 
